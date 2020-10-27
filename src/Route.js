@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
-import Context from './context';
+import React from 'react';
 import { matchPath } from './utils';
+import { useLocation } from './hooks';
 
 const Route = props => {
   const { component: Component } = props;
-  const [state] = useContext(Context);
-  const {
-    location: { pathname }
-  } = state;
+  const location = useLocation();
+  const { pathname } = location;
 
   return matchPath(pathname, props) ? <Component /> : null;
 };

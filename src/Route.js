@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from './context';
 
 const Route = props => {
-  return <div>Route</div>;
+  const { path, component: Component } = props;
+  const [state] = useContext(Context);
+
+  return null;
 };
 
 export default Route;

@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import Context from '../context';
+import useState from './useState';
 
-export const useHistory = () => {
-  const [state] = useContext(Context);
-  return state.history;
+const useHistory = () => {
+  return useState().history;
 };
+
+export default useHistory;

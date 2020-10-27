@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import Context from '../context';
+import useState from './useState';
 
-export const useLocation = () => {
-  const [state] = useContext(Context);
-  return state.location;
+const useLocation = () => {
+  return useState().location;
 };
+
+export default useLocation;

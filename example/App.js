@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link, Redirect } from 'x-router';
+import { HashRouter as Router, Route, Link, Redirect, Switch } from 'x-router';
 import Home from './home';
 import About from './about';
 import './app.css';
@@ -14,9 +14,13 @@ const App = () => {
             <Link to="/home">home</Link>
             <Link to="/about">about</Link>
           </div>
-          <Route path="/home" component={Home} />
-          <Route path="/about" component={About} />
-          <Redirect to="/home" />
+          <div>
+            <Switch>
+              <Route path="/home" component={Home} />
+              <Route path="/about" component={About} />
+              <Redirect to="/home" />
+            </Switch>
+          </div>
         </>
       </Router>
     </>

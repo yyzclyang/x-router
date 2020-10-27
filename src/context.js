@@ -1,14 +1,22 @@
 import React from 'react';
+import { ChangePathname } from './type';
 
 const Context = React.createContext(null);
 
 const initialState = {
   history: {},
-  location: {},
+  location: { pathname: window.location.hash.slice(1) || '/' },
   match: {}
 };
 
-const reducers = {};
+const reducers = {
+  [ChangePathname]: (state, action) => {
+    return {
+      ...state,
+      location: { ...state.location, pathname: action.payload }
+    };
+  }
+};
 
 const reducer = (state, action) => {
   const actionFn = reducers[action.type];

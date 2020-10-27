@@ -4,7 +4,11 @@ import { ChangePathname } from './type';
 const Context = React.createContext(null);
 
 const initialState = {
-  history: {},
+  history: {
+    push: to => {
+      window.location.hash = to;
+    }
+  },
   location: { pathname: window.location.hash.slice(1) || '/' },
   match: {}
 };

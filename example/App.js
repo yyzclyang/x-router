@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link } from 'x-router';
+import { HashRouter as Router, Route, Link, Redirect } from 'x-router';
 import Home from './home';
 import About from './about';
 import './app.css';
@@ -16,6 +16,7 @@ const App = () => {
           </div>
           <Route path="/home" component={Home} />
           <Route path="/about" component={About} />
+          <Redirect to="/home" />
         </>
       </Router>
     </>

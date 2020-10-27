@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
-import { HashChangeEvent, ChangePathname } from './type';
 import Context, { initialState, reducer } from './context';
+import { HashChangeEvent, ChangePathname } from './type';
 
 const HashRouter = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const listen = useCallback(e => {
-    dispatch({ type: ChangePathname, payload: window.location.hash || '/' });
+    dispatch({
+      type: ChangePathname,
+      payload: window.location.hash.slice(1) || '/'
+    });
   }, []);
 
   useEffect(() => {

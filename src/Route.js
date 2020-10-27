@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from './context';
+import { matchPath } from './utils';
 
 const Route = props => {
   const { path, component: Component } = props;
@@ -8,7 +9,7 @@ const Route = props => {
     location: { pathname }
   } = state;
 
-  return path === pathname ? <Component /> : null;
+  return matchPath(pathname, { path }) ? <Component /> : null;
 };
 
 export default Route;

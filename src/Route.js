@@ -4,8 +4,11 @@ import Context from './context';
 const Route = props => {
   const { path, component: Component } = props;
   const [state] = useContext(Context);
+  const {
+    location: { pathname }
+  } = state;
 
-  return null;
+  return path === pathname ? <Component /> : null;
 };
 
 export default Route;

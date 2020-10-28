@@ -6,8 +6,8 @@ const Route = props => {
   const { component: Component } = props;
   const location = useLocation();
   const { pathname } = location;
-
-  return matchPath(pathname, props) ? <Component /> : null;
+  const [match, params] = matchPath(pathname, props);
+  return match ? <Component params={params} /> : null;
 };
 
 export default Route;

@@ -10,12 +10,11 @@ const Switch = props => {
     <>
       {
         React.Children.map(props.children, child => {
-          return matchPath(pathname, {
+          const [match] = matchPath(pathname, {
             ...child.props,
             path: child.props.path || ''
-          })
-            ? child
-            : null;
+          });
+          return match ? child : null;
         })[0]
       }
     </>

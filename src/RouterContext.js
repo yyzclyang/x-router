@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChangePathname } from './type';
 
-const Context = React.createContext(null);
+const RouterContext = React.createContext(null);
 
 const initialState = {
   history: {
@@ -31,5 +31,5 @@ const reducer = (state, action) => {
   }
 };
 
-export default Context;
+export default RouterContext;
 export { initialState, reducer };

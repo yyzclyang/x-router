@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
-import Context, { initialState, reducer } from './context';
+import RouterContext, { initialState, reducer } from './RouterContext';
 import { HashChangeEvent, ChangePathname } from './type';
 
 const HashRouter = props => {
@@ -18,9 +18,9 @@ const HashRouter = props => {
   }, []);
 
   return (
-    <Context.Provider value={[state, dispatch]}>
+    <RouterContext.Provider value={[state, dispatch]}>
       {props.children}
-    </Context.Provider>
+    </RouterContext.Provider>
   );
 };
 

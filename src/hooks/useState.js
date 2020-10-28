@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import Context from '../context';
+import RouterContext from '../RouterContext';
 
 const useState = () => {
-  const [state] = useContext(Context);
+  const [state] = useContext(RouterContext);
   return state;
 };
 

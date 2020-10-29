@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useHistory } from './hooks';
 
 const Redirect = props => {
-  const { to } = props;
+  const { to, push = false } = props;
   const history = useHistory();
+
   useEffect(() => {
-    history.push(to);
+    (push ? history.push : history.replace)(to);
   }, []);
 
   return null;

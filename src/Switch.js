@@ -1,22 +1,34 @@
 import React from 'react';
-import { useLocation } from './hooks';
+import RouterContext from './RouterContext';
+import { useRouterContext } from './hooks';
 import { matchPath } from './utils';
 
 const Switch = props => {
-  const location = useLocation();
-  const { pathname } = location;
+  const context = useRouterContext();
+  const location = props.location || context.location;
 
   return (
     <>
-      {
-        React.Children.map(props.children, child => {
-          const [match] = matchPath(pathname, {
-            ...child.props,
-            path: child.props.path || ''
-          });
-          return match ? child : null;
-        })[0]
-      }
+      {(() => {
+        let element;
+        let match;
+
+        React.Children.forEach(props.children, child => {
+          if (!match && React.isValidElement(child)) {
+            element = child;
+
+            const path = child.props.path || child.props.from;
+
+            match = path
+              ? matchPath(location.pathname, {
+                  ...child.props,
+                  path
+                })
+              : context.match;
+          }
+        });
+        return match ? React.cloneElement(element, { location }) : null;
+      })()}
     </>
   );
 };

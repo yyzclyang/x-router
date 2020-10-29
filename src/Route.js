@@ -1,13 +1,23 @@
 import React from 'react';
+import RouterContext from './RouterContext';
+import { useRouterContext } from './hooks';
 import { matchPath } from './utils';
-import { useLocation } from './hooks';
 
 const Route = props => {
   const { component: Component } = props;
-  const location = useLocation();
+  const context = useRouterContext();
+  const location = props.location || context.location;
+
   const { pathname } = location;
-  const [match, params] = matchPath(pathname, props);
-  return match ? <Component params={params} /> : null;
+  const match = matchPath(pathname, props);
+
+  const _props = { ...context, location, match };
+
+  return match ? (
+    <RouterContext.Provider value={_props}>
+      <Component {..._props} />
+    </RouterContext.Provider>
+  ) : null;
 };
 
 export default Route;

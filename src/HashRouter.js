@@ -1,27 +1,39 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
-import RouterContext, { initialState, reducer } from './RouterContext';
-import { HashChangeEvent, ChangePathname } from './type';
+import React, { useCallback, useEffect, useState } from 'react';
+import { createHashHistory as createHistory } from 'history';
+import RouterContext from './RouterContext';
 
 const HashRouter = props => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [history] = useState(() => createHistory());
+  const [location, setLocation] = useState(history.location);
 
-  const listen = useCallback(e => {
-    dispatch({
-      type: ChangePathname,
-      payload: window.location.hash.slice(1) || '/'
-    });
+  const listen = useCallback(({ location }) => {
+    setLocation(location);
   }, []);
 
   useEffect(() => {
-    window.location.hash = window.location.hash || '/';
-    window.addEventListener(HashChangeEvent, listen);
-  }, []);
+    const unlisten = history.listen(listen);
+    return () => {
+      unlisten();
+    };
+  }, [listen]);
 
   return (
-    <RouterContext.Provider value={[state, dispatch]}>
+    <RouterContext.Provider
+      value={{
+        history,
+        location,
+        match: {
+          path: '/',
+          url: '/',
+          params: {},
+          isExact: location.pathname === '/'
+        }
+      }}
+    >
       {props.children}
     </RouterContext.Provider>
   );
 };
+HashRouter.displayName = 'HashRouter';
 
 export default HashRouter;
